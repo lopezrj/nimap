@@ -41,15 +41,18 @@ var probe,
 var format = d3.format(",");
 
 var q = d3.queue();
-q.defer(showmap);
-q.defer(createLegend);
+q.defer(showMap);
+q.defer(showBubbles, 2008);
+q.defer(showLegend);
+
+
 q.await(function(error) {
   if (error) throw error;
   console.log("Goodbye!");
 });
 
 // Display municipios y departamentos
-function showmap(){ 
+function showMap(){ 
   d3.json(mapfile, function(error, ni) {
     if (error) return console.error(error);
 
@@ -68,14 +71,8 @@ function showmap(){
       .attr("class", "border border--departamento")
       .attr("vector-effect","non-scaling-stroke")
       .attr("d", path); 
-    
-    // pinta las burbujas por municipio
 
-    createBubbles(ni);
   });
-
-
-//  createLegend();
 }
 
 // FUNCTIONS
@@ -84,7 +81,7 @@ function circleSize(d){
     return Math.sqrt( .02 * Math.abs(d) );
 }
 
-function createLegend() {
+function showLegend() {
   
   var legend = svg.append("g")
       .attr("class", "legend")
@@ -104,12 +101,6 @@ function createLegend() {
 }
 
 function setProbeContent(d){
-//  var val = d[ orderedColumns[ currentFrame ] ],
-//      m_y = getMonthYear( orderedColumns[ currentFrame ] ),
-//      month = months_full[ months.indexOf(m_y[0]) ];
-//  var html = "<strong>" + d.CITY + "</strong><br/>" +
-//            format( Math.abs( val ) ) + "  " + ( val < 0 ? "lost" : " count" ) + "<br/>" +
-//            "<span>" + month + " " + m_y[1] + "</span>";
   var html= "<strong>" + d.properties.name + "</strong><br/>"
             + "Hab: " + d3.format(",d")(pobById.get(d.id)) 
             + "<br/> Urbano: " + d3.format("%")(pctUrbana.get(d.id))
@@ -118,58 +109,70 @@ function setProbeContent(d){
     .html( html );
 }
 
-function createBubbles(ni){
+function showBubbles(year){
+  d3.json(mapfile, function(error, ni) {
+    if (error) return console.error(error);
 
-  var arc = d3.svg.arc()  .innerRadius(0) .outerRadius(10) .startAngle(0) .endAngle(1.5*Math.PI);
+    var arc = d3.svg.arc().innerRadius(0).outerRadius(10).startAngle(0).endAngle(1.5*Math.PI);
+ //   var year= 2008
+    var alfa= "+d.pob"+year+"t"
+    var beta= "+d.pob"+year+"ur/+d.pob"+year+"t"
+    var gamma= "+d.pob"+year+"ur"
 
-  probe = d3.select("#map-container").append("div")
-    .attr("id","probe");
-    
-  d3.tsv(datafile, function(d) { 
-    pobById = d3.map();
-    pctUrbana = d3.map();
-    pobUrbana = d3.map();
-    d.forEach(function(d) {
-      pobById.set(d.id, +d.pob2012);
-      pctUrbana.set(d.id, +d.pob2012ur/+d.pob2012);
-      pobUrbana.set(d.id, +d.pob2012ur);
-    });
-    
-    map.append("g")
-      .attr("class", "arcs")
-      .selectAll(".arc")
-        .data(topojson.feature(ni, ni.objects.municipios).features
-              .sort(function(a,b) { return pobById.get(b.id) - pobById.get(a.id)}))
-        .enter().append("path")
-        .attr("class","arc")
-        .attr("d", arc
-                   .outerRadius(function(d) { return radius(pobById.get(d.id)); })
-                   .endAngle(function(d) { return 2*Math.PI*pctUrbana.get(d.id); })
-              )
-        .attr("transform", function(d) { return "translate(" + path.centroid(d) + ")"; });
-    
-    map.append("g")
-      .attr("class", "bubble")
-      .selectAll("circle")
-        .data(topojson.feature(ni, ni.objects.municipios).features
-              .sort(function(a,b) { return pobById.get(b.id) - pobById.get(a.id)}))
-        .enter().append("circle")
-        .attr("transform", function(d) { return "translate(" + path.centroid(d) + ")"; })
-        .attr("r", function(d) { return radius(pobById.get(d.id)); })
-        .on("mousemove",function(d){
-           hoverData = d.name;
-           setProbeContent(d);
-           probe
-             .style( {
-               "display" : "block",
-               "top" : (d3.event.pageY - 80) + "px",
-               "left" : (d3.event.pageX + 10) + "px"
-             })
-         })
-         .on("mouseout",function(){
-           hoverData = null;
-           probe.style("display","none");
-         });
+//    var alfa= "+d.pob2009t"
+//    var beta= "+d.pob2009ur/+d.pob2009t"
+//    var gamma= "+d.pob2009ur"
+
+
+    probe = d3.select("#map-container").append("div")
+      .attr("id","probe");
+      
+    d3.tsv(datafile, function(d) { 
+      pobById = d3.map();
+      pctUrbana = d3.map();
+      pobUrbana = d3.map();
+      d.forEach(function(d) {
+        pobById.set(d.id, eval(alfa));
+        pctUrbana.set(d.id, eval(beta));
+        pobUrbana.set(d.id, eval(gamma));
+      });
+      
+      map.append("g")
+        .attr("class", "arcs")
+        .selectAll(".arc")
+          .data(topojson.feature(ni, ni.objects.municipios).features
+                .sort(function(a,b) { return pobById.get(b.id) - pobById.get(a.id)}))
+          .enter().append("path")
+          .attr("class","arc")
+          .attr("d", arc
+                     .outerRadius(function(d) { return radius(pobById.get(d.id)); })
+                     .endAngle(function(d) { return 2*Math.PI*pctUrbana.get(d.id); })
+                )
+          .attr("transform", function(d) { return "translate(" + path.centroid(d) + ")"; });
+      
+      map.append("g")
+        .attr("class", "bubble")
+        .selectAll("circle")
+          .data(topojson.feature(ni, ni.objects.municipios).features
+                .sort(function(a,b) { return pobById.get(b.id) - pobById.get(a.id)}))
+          .enter().append("circle")
+          .attr("transform", function(d) { return "translate(" + path.centroid(d) + ")"; })
+          .attr("r", function(d) { return radius(pobById.get(d.id)); })
+          .on("mousemove",function(d){
+             hoverData = d.name;
+             setProbeContent(d);
+             probe
+               .style( {
+                 "display" : "block",
+                 "top" : (d3.event.pageY - 80) + "px",
+                 "left" : (d3.event.pageX + 10) + "px"
+               })
+           })
+           .on("mouseout",function(){
+             hoverData = null;
+             probe.style("display","none");
+           });
+    })
   })
 }
 

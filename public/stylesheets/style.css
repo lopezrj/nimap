@@ -5,6 +5,12 @@ body {
 a {
   color: #00b7ff;
 }
+header {
+  padding-left: 15px;
+}
+#map-container {
+  padding-top: 15px;
+}
 path {
   fill: none;
   stroke: #000;
