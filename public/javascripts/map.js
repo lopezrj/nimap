@@ -1,3 +1,5 @@
+// MAPA DE MUNICIPIOS Y DEPARTAMENTOS CON BURBUJAS POR MUNICIPIO
+
 var mapfile=  "/geodata/ni.json";
 var datafile=  "/data/poblacion.tsv";
 
@@ -38,35 +40,43 @@ var probe,
 
 var format = d3.format(",");
 
-// Display municipios y departamentos
-
-d3.json(mapfile, function(error, ni) {
-  if (error) return console.error(error);
-
-  // pinta los municipios as a feature
-  
-  map.append("path")
-    .datum(topojson.feature(ni, ni.objects.departamentos))
-    .attr("vector-effect","non-scaling-stroke")
-    .attr("class", "land")
-    .attr("d", path);
-
-  // pinta los departamentos as a mesh
-  
-  map.append("path")
-    .datum(topojson.mesh(ni,ni.objects.departamentos,function(a, b) { return a !== b; }))
-    .attr("class", "border border--departamento")
-    .attr("vector-effect","non-scaling-stroke")
-    .attr("d", path); 
-  
-  // pinta las burbujas por municipio
-
-  createBubbles(ni);
+var q = d3.queue();
+q.defer(showmap);
+q.defer(createLegend);
+q.await(function(error) {
+  if (error) throw error;
+  console.log("Goodbye!");
 });
 
+// Display municipios y departamentos
+function showmap(){ 
+  d3.json(mapfile, function(error, ni) {
+    if (error) return console.error(error);
 
-createLegend();
+    // pinta los municipios as a feature
+    
+    map.append("path")
+      .datum(topojson.feature(ni, ni.objects.departamentos))
+      .attr("vector-effect","non-scaling-stroke")
+      .attr("class", "land")
+      .attr("d", path);
 
+    // pinta los departamentos as a mesh
+    
+    map.append("path")
+      .datum(topojson.mesh(ni,ni.objects.departamentos,function(a, b) { return a !== b; }))
+      .attr("class", "border border--departamento")
+      .attr("vector-effect","non-scaling-stroke")
+      .attr("d", path); 
+    
+    // pinta las burbujas por municipio
+
+    createBubbles(ni);
+  });
+
+
+//  createLegend();
+}
 
 // FUNCTIONS
 
