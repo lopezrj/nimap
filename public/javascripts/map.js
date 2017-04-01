@@ -73,9 +73,7 @@ function showmap(){
 
     createBubbles(ni);
   });
-
-
-//  createLegend();
+  
 }
 
 // FUNCTIONS
