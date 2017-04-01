@@ -1,4 +1,4 @@
-"nid"	"departamento_code"	"departamento_name"	"id"	"municipio_name"	"km2"	"habtotkm2"	"habrurkm2"	"pob2012"	"pob2012ur"	"pob2012ru"	"municipio_capital_name"	"ppl_code"	"lat"	"lon"	"dms_lat"	"dms_lon"	"asnm"	"pob2008u"	"pob2008r"	"pob2008t"	"pob2009u"	"pob2009r"	"pob2009t"	"image_file_name"
+"nid"	"departamento_code"	"departamento_name"	"id"	"municipio_name"	"km2"	"habtotkm2"	"habrurkm2"	"pob2012t"	"pob2012ur"	"pob2012ru"	"municipio_capital_name"	"ppl_code"	"lat"	"lon"	"dms_lat"	"dms_lon"	"asnm"	"pob2008ur"	"pob2008ru"	"pob2008t"	"pob2009ur"	"pob2009ru"	"pob2009t"	"image_file_name"
 1	5	Nueva Segovia 	505	Jalapa 	686.88	93.7849406	48.62712555	64419	31018	33401	Jalapa	0	13.91666667	-86.11666667	135500	-860700	679	29034	32429	61463	29945	32244	62189	MaPJalapa.jpeg
 2	5	Nueva Segovia 	510	Murra 	429.13	39.89001002	36.1778482	17118	1593	15525	Murra	0	13.75	-86.01666667	134500	-860100	750	1498	14813	16311	1537	14970	16507	MaPMurra.jpeg
 3	5	Nueva Segovia 	515	El Jícaro 	428.78	71.01310695	51.78413172	30449	8245	22204	El Jícaro	0	13.71666667	-86.13333333	134300	-860800	580	7484	20450	27934	7625	20531	28156	MaPElJicaro.jpeg
