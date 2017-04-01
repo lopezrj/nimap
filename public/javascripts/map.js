@@ -2,6 +2,7 @@
 
 var mapfile=  "/geodata/ni.json";
 var datafile=  "/data/poblacion.tsv";
+var selectedYear= 2012
 
 var width = 1260,
     height = 800;
@@ -42,7 +43,7 @@ var format = d3.format(",");
 
 var q = d3.queue();
 q.defer(showMap);
-q.defer(showBubbles, 2008);
+q.defer(showBubbles, selectedYear);
 q.defer(showLegend);
 
 
@@ -101,7 +102,7 @@ function showLegend() {
 }
 
 function setProbeContent(d){
-  var html= "<strong>" + d.properties.name + "</strong><br/>"
+  var html= "<strong>" + d.properties.name + " " + selectedYear +"</strong><br/>"
             + "Hab: " + d3.format(",d")(pobById.get(d.id)) 
             + "<br/> Urbano: " + d3.format("%")(pctUrbana.get(d.id))
             + " " + d3.format(",d")(pobUrbana.get(d.id));
