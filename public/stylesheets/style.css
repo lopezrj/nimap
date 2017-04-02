@@ -11,6 +11,10 @@ header {
 #map-container {
   padding-top: 15px;
 }
+#map {
+  border: 2px solid #000;
+  background: #f00;
+}
 path {
   fill: none;
   stroke: #000;
@@ -57,22 +61,6 @@ circle:hover {
   fill: #777;
   font: 10px sans-serif;
   text-anchor: middle;
-}
-#slider-container {
-  position: relative;
-}
-#slider-div {
-  margin-left: 65px;
-  margin-top: 10px;
-}
-#axis path {
-  fill: none;
-}
-#axis .tick line {
-  stroke: #999;
-}
-#axis .tick text {
-  font-size: 12px;
 }
 #probe {
   position: absolute;

@@ -10,8 +10,9 @@ html
     script(src="/javascripts/bootstrap.min.js")  
   body
     header
-      h1= title
-    block content
+      block header
+    main
+      block content
     script(src="/javascripts/d3.v3.min.js")  
     script(src="/javascripts/d3-queue.min.js")
     script(src="/javascripts/topojson.min.js")
