@@ -1,16 +1,20 @@
 extends layout
 
+block header
+  .container
+    .row
+      .col-md-7
+        .h3 Nicaragua
+      .col-md-5
+        form.form-inline
+          .form-group.h4
+            label.control-label(for="nValue") Año &nbsp; 
+            select.form-control(name="nValue" id="nValue")
+              option(value="2012") 2012
+              option(value="2009") 2009
+              option(value="2008") 2008
 block content
   .container-fluid
-    .row
-      #slider-container
-        label(for="nValue" style="display: inline-block; width: 240px; text-align: right; font-size: 28;")
-          p Año = 
-          span#nValue-value
-        select(name="nValue" id="nValue")
-          option(value="2012") 2012
-          option(value="2009") 2009
-          option(value="2008") 2008
     .row
       #map-container
 

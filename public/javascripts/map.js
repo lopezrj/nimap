@@ -44,17 +44,26 @@ var probe,
 
 var format = d3.format(",");
 
+
+var q = d3.queue();
+q.defer(showMap);
+q.defer(showLegend);
+
+q.await(function(error) {
+  if (error) throw error;
+  console.log("Goodbye!");
+});
+
 update(2012);
+
 
 function update(selectedYear) {
   var q = d3.queue();
-  svg.selectAll('.legend').remove();
-  svg.selectAll('circle').remove();
+  svg.selectAll('.bubble').remove();
   svg.selectAll('.arc').remove();
+  svg.selectAll('.labelYear').remove();
   d3.select("#map-container").selectAll('#probe').remove();
-  q.defer(showMap);
   q.defer(showBubbles, selectedYear);
-  q.defer(showLegend);
 
   q.await(function(error) {
     if (error) throw error;
@@ -95,12 +104,12 @@ function circleSize(d){
 function showLegend() {
   
   var legend = svg.append("g")
-      .attr("class", "legend")
-      .attr("transform", "translate(" + (150) + "," + (height - 150) + ")")
+    .attr("class", "legend")
+    .attr("transform", "translate(" + (150) + "," + (height - 150) + ")")
     .selectAll("g")
-      .data([5e4, 1.5e5, 3e5,1e6 ])
+    .data([5e4, 1.5e5, 3e5,1e6 ])
     .enter().append("g");
-    
+  
   legend.append("circle")
     .attr("cy", function(d) { return -radius(d); })
     .attr("r", radius);
@@ -133,8 +142,7 @@ function showBubbles(year){
 //    var alfa= "+d.pob2009t"
 //    var beta= "+d.pob2009ur/+d.pob2009t"
 //    var gamma= "+d.pob2009ur"
-
-
+ 
     probe = d3.select("#map-container").append("div")
       .attr("id","probe");
       
@@ -183,7 +191,27 @@ function showBubbles(year){
              hoverData = null;
              probe.style("display","none");
            });
-    })
+
+       var labelYear = svg.append("g")
+         .attr("class","labelYear")
+         .attr("transform", "translate(" + (150) + "," + (height - 750) + ")");
+
+      labelYear.append( "rect" )
+        .attr("width",50)
+        .attr("height",40)
+        .attr("fill","white")
+        .attr("opacity",0)
+
+      labelYear.append("text")
+         .text(year)
+         .attr("font-family", "sans-serif")
+         .attr("font-weight", "bold")
+         .attr("font-size", "40px")
+         .attr("fill", "steelblue")
+         .attr("dy", "1.3em")
+         .attr("dx", "0.3em");
+
+    })  
   })
 }
 
