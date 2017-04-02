@@ -11,6 +11,10 @@ header {
 #map-container {
   padding-top: 15px;
 }
+#map {
+  border: 2px solid #000;
+  background: #f00;
+}
 path {
   fill: none;
   stroke: #000;

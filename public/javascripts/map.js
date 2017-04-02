@@ -2,6 +2,10 @@
 
 var mapfile=  "/geodata/ni.json";
 var datafile=  "/data/poblacion.tsv";
+d3.select("#nValue").on("input", function() {
+  update(+this.value);
+});
+
 
 var width = 1260,
     height = 800;
@@ -40,16 +44,23 @@ var probe,
 
 var format = d3.format(",");
 
-var q = d3.queue();
-q.defer(showMap);
-q.defer(showBubbles, 2008);
-q.defer(showLegend);
+update(2012);
 
+function update(selectedYear) {
+  var q = d3.queue();
+  svg.selectAll('.legend').remove();
+  svg.selectAll('circle').remove();
+  svg.selectAll('.arc').remove();
+  d3.select("#map-container").selectAll('#probe').remove();
+  q.defer(showMap);
+  q.defer(showBubbles, selectedYear);
+  q.defer(showLegend);
 
-q.await(function(error) {
-  if (error) throw error;
-  console.log("Goodbye!");
-});
+  q.await(function(error) {
+    if (error) throw error;
+    console.log("Goodbye!");
+  });
+}
 
 // Display municipios y departamentos
 function showMap(){ 
@@ -100,8 +111,8 @@ function showLegend() {
     .text(d3.format(".1s"));
 }
 
-function setProbeContent(d){
-  var html= "<strong>" + d.properties.name + "</strong><br/>"
+function setProbeContent(d, year){
+  var html= "<strong>" + d.properties.name + " " + year +"</strong><br/>"
             + "Hab: " + d3.format(",d")(pobById.get(d.id)) 
             + "<br/> Urbano: " + d3.format("%")(pctUrbana.get(d.id))
             + " " + d3.format(",d")(pobUrbana.get(d.id));
@@ -160,7 +171,7 @@ function showBubbles(year){
           .attr("r", function(d) { return radius(pobById.get(d.id)); })
           .on("mousemove",function(d){
              hoverData = d.name;
-             setProbeContent(d);
+             setProbeContent(d,year);
              probe
                .style( {
                  "display" : "block",
