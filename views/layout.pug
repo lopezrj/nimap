@@ -8,8 +8,10 @@ html
     script(src='/javascripts/jquery.min.js')
     script(src="/javascripts/bootstrap.min.js")  
   body
-    header
-      block header
+    nav.navbar-default
+      .container-fluid
+        .navbar-header
+          a.navbar-brand(class="glyphicon glyphicon-globe" aria-hidden="false" href="/") &nbsp;Mapas&nbsp;de&nbsp;Nicaragua
     main
       block content
     script(src="/javascripts/d3.v3.min.js")  
