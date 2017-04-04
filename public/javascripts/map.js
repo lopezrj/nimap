@@ -42,9 +42,6 @@ var radius = d3.scale.sqrt()
 var probe,
     hoverData;
 
-var format = d3.format(",");
-
-
 var q = d3.queue();
 q.defer(showMap);
 q.defer(showLegend);
@@ -54,8 +51,7 @@ q.await(function(error) {
   console.log("Goodbye!");
 });
 
-update(2012);
-
+update(2015);
 
 function update(selectedYear) {
   var q = d3.queue();
@@ -122,10 +118,15 @@ function showLegend() {
 
 
 function setProbeContent(d, year){
-  var html= "<strong>" + d.properties.name + " " + year +"</strong><br/>"
-            + "Hab: " + d3.format(",d")(pobById.get(d.id)) 
-            + "<br/> Urbano: " + d3.format("%")(pctUrbana.get(d.id))
-            + " " + d3.format(",d")(pobUrbana.get(d.id));
+
+  var fc = d3.format(",");
+  var fp = d3.format("%");
+
+  var html= "<strong>" + d.properties.name + " " 
+            + year +"</strong><br/>"
+            + "Hab: " + fc(pobById.get(d.id)) 
+            + "<br/> Urbano: " + fp(pctUrbana.get(d.id))
+            + " " + fc(pobUrbana.get(d.id));
   probe
     .html( html );
 }
