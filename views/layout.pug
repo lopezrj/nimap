@@ -11,7 +11,15 @@ html
     nav.navbar-default
       .container-fluid
         .navbar-header
-          a.navbar-brand(class="glyphicon glyphicon-globe" aria-hidden="false" href="/") &nbsp;Mapas&nbsp;de&nbsp;Nicaragua
+          a.navbar-brand(href="/") 
+            span.glyphicon.glyphicon-globe(aria-hidden="true") &nbsp;Nicaragua
+          <!--
+          ul(class="nav navbar-nav")
+            li.dropdown
+              a(href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Mapa 
+                span.caret
+                ul.dropdown-menu
+                 a(href="/map1") Poblacion por Municipio Urbana y Rural -->
     main
       block content
     script(src="/javascripts/d3.v3.min.js")  
