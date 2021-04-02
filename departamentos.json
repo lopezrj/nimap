@@ -1,0 +1,19 @@
+[
+  { "cinide": 5, "cca4": "NI-NS","name": "NUEVA SEGOVIA" },
+  { "cinide": 20, "cca4": "NI-MD","name": "MADRIZ" },
+  { "cinide": 25, "cca4": "NI-ES","name": "ESTELI" },
+  { "cinide": 35, "cca4": "NI-LE","name": "LEON" },
+  { "cinide": 50, "cca4": "NI-BO","name": "BOACO" },
+  { "cinide": 55, "cca4": "NI-MN","name": "MANAGUA" },
+  { "cinide": 60, "cca4": "NI-MS","name": "MASAYA" },
+  { "cinide": 65, "cca4": "NI-CO","name": "CHONTALES" },
+  { "cinide": 70, "cca4": "NI-GR","name": "GRANADA" },
+  { "cinide": 75, "cca4": "NI-CA","name": "CARAZO" },
+  { "cinide": 80, "cca4": "NI-RI","name": "RIVAS" },
+  { "cinide": 85, "cca4": "NI-SJ","name": "RIO SAN JUAN" },
+  { "cinide": 40, "cca4": "NI-MT","name": "MATAGALPA" },
+  { "cinide": 10, "cca4": "NI-JI","name": "JINOTEGA" },
+  { "cinide": 93, "cca4": "NI-AS","name": "RAAS" },
+  { "cinide": 91, "cca4": "NI-AN","name": "RAAN" },
+  { "cinide": 30, "cca4": "NI-CI","name": "CHINANDEGA" }
+]
