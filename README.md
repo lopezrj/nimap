@@ -3,8 +3,8 @@
 This repository contains a list of administrative divisions of Nicaragua in JSON.
 
 Files are:
-  - departamentos.json - Departamentos
+  - **departamentos.json** - Departamentos
 
 ## Additional data
 
-The data folder contains additional data such as the GeoJSON outlines.
+The [data](https://github.com/lopezrj/nimap/tree/master/data) folder contains additional data such as the GeoJSON outlines.
