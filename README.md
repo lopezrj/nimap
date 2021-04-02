@@ -7,4 +7,4 @@ Files are:
 
 ## Additional data
 
-The [data](https://github.com/lopezrj/nimap/tree/master/data) folder contains additional data such as the GeoJSON outlines.
+The [data](https://github.com/lopezrj/nimap/tree/main/data) folder contains additional data such as the GeoJSON outlines.
